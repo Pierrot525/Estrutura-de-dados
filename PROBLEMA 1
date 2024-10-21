@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+    int *vetnum,numero;
+    int tam = 0;
+    
+    do{
+
+       printf("digite um numero positivo\n");
+       scanf("%d",&numero);
+ 
+      if(numero >= 0 ){
+         vetnum = realloc(vetnum,(tam+1)*sizeof(int));
+         
+         vetnum[tam] = numero;
+         tam++;
+      }
+      else{ printf("digite um numero VALIDO!!!\n");
+      }
+
+    }while(numero != -1);
+
+       printf("os numeros digitados foram\n");
+
+    for(int i=0;i<tam;i++){
+        printf("%d  ",vetnum[i]);
+    }
+    
+return 0; } 
+
+//Você deve ler uma quantidade desconhecida de números positivos informadas pelo usuário que, ao terminar, digitará o número -1, sem falha. Armazene estes números em memória e ao final os exiba no terminal.
