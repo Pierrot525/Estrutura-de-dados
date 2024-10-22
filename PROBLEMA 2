@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b); }
+
+int main(void){
+    int *vetnum,numero;
+    int tam = 0;
+    
+    do{
+
+       printf("digite um numero positivo\n");
+       scanf("%d",&numero);
+ 
+      if(numero >= 0 ){
+         vetnum = realloc(vetnum,(tam+1)*sizeof(int));
+         
+         vetnum[tam] = numero;
+         tam++;
+    }
+      else{ printf("digite um numero VALIDO!!!\n");
+    }
+
+    }while(numero != -1);
+
+       printf("os numeros digitados foram\n");
+
+    for(int i=0;i<tam;i++){
+        printf("%d  ",vetnum[i]);
+    }
+
+       printf("\n esses numeros em ordem crescente sao:\n");
+    
+    qsort(vetnum,tam,sizeof(int),compare);
+
+    for(int i=0;i<tam;i++){
+        printf("%d  ",vetnum[i]);
+    }
+
+return 0; } 
