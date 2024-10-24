@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+
+  char nome[50];
+  char s_nome[50];
+  int id;
+  int melhor_amigo;
+
+}cadastro;
+   
+int main(){
+  
+  int qtd;
+  
+    printf("quantas pessoas serao cadastradas?\n");
+    scanf("%d",&qtd);
+  
+  cadastro *pessoa;
+  
+  pessoa = malloc(sizeof(cadastro) * qtd);  //alocar memoria para a quantidade de cadastrados
+  
+  if( pessoa == NULL ){
+    printf("erro ao alocar memoria\n\n");
+  }
+  else{
+    printf("alocar memoria deu certin\n\n");  //chechar se a memoria foi alocada corretamente
+  }
+
+  for(int i=1;i<=qtd;i++){
+    
+    printf("Nome:\n");
+    scanf("%49s",pessoa[i].nome);
+
+    printf(" Sobrenome: \n");
+    scanf("%49s",pessoa[i].s_nome);
+
+    printf(" Idade: \n");
+    scanf("%d",&pessoa[i].id);
+
+    pessoa[i].melhor_amigo = -1;
+
+    printf("\n");
+
+  } //cadastrar as pessoas.
+
+  for(int i=1;i<=qtd;i++){
+
+    printf("\n o cadastrado de numero ( %d ) e : (%s)\n", i, pessoa[i].nome );
+
+  }
+
+  for(int i=1;i<=qtd;i++){
+    
+    int amizade;
+
+      do{
+        printf("\n o melhor amigo de %s %s sera? (escolha alguem 1 a %d , ou -1 se ele nao tiver) \n", pessoa[i].nome, pessoa[i].s_nome, qtd);
+        scanf("%d", &amizade);
+
+        if( amizade == -1){
+           break;
+        }
+
+        if( amizade == i){
+           printf("\n Voce nao e seu melhor amigo \n");
+        }
+
+
+      }while( amizade == i || amizade < 1 || amizade >= qtd);
+
+    pessoa[i].melhor_amigo = amizade;
+
+    
+     printf("\n o melhor amigo de %s e: \n %s \n", pessoa[i].nome, pessoa[amizade].nome);
+
+  } //definir os melhores amigos.
+
+
+  free(pessoa);// liberar a memoria alocada no programa
+
+
+return 0;}
