@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <stdlib.h> //lembrar de liberar memoria.
+
+typedef struct Person{
+    char name[50];
+    int age;
+}Person;  //defina a struct pessoa primeiro, pois ela será parametro da pilha.
+
+typedef struct Pile{
+    struct Person p;
+    struct Pile *next; //crie a pilha, contendo pessoa e um ponteiro apontando para a proxima pessoa na pilha
+}Pile;
+
+Person regist(){ 
+    Person p;   //registre a pessoa (essa pessoa sempre será redirecionada para empilhar no topo).
+
+    printf("\ndigite seu nome:\n");
+    scanf("%s",p.name);
+
+    printf("\ndigite sua idade:\n");
+    scanf("%d",&p.age);
+
+    printf("\n"); 
+
+return p;} //retorne as informações da ultima pessoa empilhada
+
+void see_regist(Person p){ //função sem retorno, apenas para mostrar as informações da pessoa no topo
+    printf("\nSeu nome e: \n %s",p.name);
+    printf("\n");
+    printf("\nsua idade é: \n %d",p.age);
+
+    printf("\n");
+}
+
+Pile* push(Pile *top){
+    Pile *new = malloc(sizeof(Pile)); //alocar memoria para o novo dado da pilha.
+
+    if(new){ //checar se houve erro na alocação.
+
+        new->p = regist();   //a pessoa no novo espaço da pilha será registrada.
+        new->next = top; //o proximo do novo dado, é o atual topo.
+
+    return new;} //retorne o novo dado
+
+    else{
+        printf("\nerro ao alocar memoria\n");
+    return NULL;} //se a alocação não for concluida com sucesso, informe o usuário e de retorno nulo.
+
+}
+
+Pile* pop(Pile **top){   //"informei um ponteiro para ponteiro, pois apenas 
+                         //referenciando (*top), o conteúdo não estaria sendo mudado"                           
+    if(*top != NULL){             
+
+        Pile *old_top = *top; //
+        *top = old_top->next;
+        
+    return old_top;
+    }
+    else{
+
+        printf("\nPilha vazia!!\n");
+    return NULL;}
+}
+
+void Print_pile(Pile *top){
+    printf("\n-------INICIO PILHA-------\n");
+
+    while(top){
+        printf("\n----------\n");
+
+        see_regist(top->p);
+        top = top->next;
+
+        printf("\n----------\n");
+    }
+
+    printf("\n-------FIM DA PILHA-------\n");
+}
+
+int main(void){
+    
+    Pile *top = NULL;
+    Pile *removed;
+    int action;
+
+    do{
+
+        printf("\n1 -- para empilhar\n \n2 -- para desempilhar\n \n3 -- para mostrar\n \n0 -- para sair\n");
+        printf("\n");
+
+        scanf("%d",&action);
+
+        switch(action){
+            case 1:
+                top = push(top);
+                break;
+            case 2:
+                removed = pop(&top);
+                
+                if(removed){
+
+                    see_regist(removed->p);
+                }else{
+
+                    printf("Sem Pilha parar tirar\n");
+                }
+                break;
+            case 3:
+                Print_pile(top);
+                break;
+
+            default:
+                if(action != 0){
+                    printf("numero invalido, seu ANIMAL!!\n");
+                } 
+            
+            }
+
+    }while(action != 0 );
+
+
+return 0;}
